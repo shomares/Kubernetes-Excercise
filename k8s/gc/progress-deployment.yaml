@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: progress-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: progress
+  template:
+    metadata:
+      labels:
+        component: progress
+    spec: 
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim: 
+            claimName: data-persistent-volume-claim
+      containers:
+        - name: progress
+          image: postgres
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
