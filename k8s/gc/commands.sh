@@ -9,3 +9,11 @@ kubectl set image Deployment/server-deployment server=devtodocontainer.azurecr.i
 
 
 docker run -it -v C:/Users/ebaltazar/code\practicas/kubernetes/complex/k8s:/app ruby:2.4 sh
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install my-release ingress-nginx/ingress-nginx
