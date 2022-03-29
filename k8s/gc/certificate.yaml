@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+ 
+kind: Certificate
+metadata:
+  name: shomaresa8s-tk-tls
+spec:
+  secretName: shomaresa8s-tk
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: shomaresa8s.tk
+  dnsNames:
+    - shomaresa8s.tk
+  
